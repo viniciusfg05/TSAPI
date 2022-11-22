@@ -1,14 +1,12 @@
 import express from "express";
+import { categoriesRoutes } from "./routes/categories.router";
 
 const app = express();
 
-app.get("/", (request, response) => {
-  return response.json({ message: "Hello World" });
-});
+app.use(express.json());
 
-app.post("/curso", (request, response) => {
-  const { name } = request.body;
-  return response.json({ name });
-});
+// app.use(categoriesRoutes);
+
+app.use('/categories', categoriesRoutes)
 
 app.listen(8080, () => console.log("Server is running"));
