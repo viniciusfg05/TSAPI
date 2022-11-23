@@ -7,8 +7,23 @@ import {
 class CategoriesRepository implements ICategoriesRepository {
   private categories: Category[];
 
-  constructor() {
+  // eslint-disable-next-line no-use-before-define
+  private static INSTANCE: CategoriesRepository;
+
+  // somente a class pode chamar nossoo contrutor
+  private constructor() {
     this.categories = [];
+  }
+
+  // Repassa uma instancia ou criar um instacia
+  public static getInstance(): CategoriesRepository {
+    // se não tiver valor atribuido a ele
+    if (!CategoriesRepository.INSTANCE) {
+      CategoriesRepository.INSTANCE = new CategoriesRepository();
+    }
+
+    // se já existir instancia, return
+    return CategoriesRepository.INSTANCE;
   }
 
   create({ name, description }: ICreateCategoryDTO): void {
