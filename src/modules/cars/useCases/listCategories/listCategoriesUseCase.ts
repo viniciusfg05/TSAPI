@@ -1,17 +1,15 @@
 import { Category } from "../../model/category";
-import { CategoriesRepository } from "../../repositories/categoriesRepository";
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
 class ListCategoriesUseCase {
-    constructor(private categoriesRepository: ICategoriesRepository) {
+  // eslint-disable-next-line prettier/prettier
+  constructor(private categoriesRepository: ICategoriesRepository) { }
 
-    }
+  execute(): Category[] {
+    const categories = this.categoriesRepository.list();
 
-    execute() : Category[]    {
-        const categories = this.categoriesRepository.list()
-
-        return categories
-    }
+    return categories;
+  }
 }
 
-export { ListCategoriesUseCase }
+export { ListCategoriesUseCase };

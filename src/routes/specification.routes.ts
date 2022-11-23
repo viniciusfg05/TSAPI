@@ -1,26 +1,28 @@
-import { Router } from 'express'
-import { CategoriesRepository } from '../modules/cars/repositories/categoriesRepository'
-import { SpecificationReposity } from '../modules/cars/repositories/specificationRepository'
-import { CreateCategoryUseCase } from '../modules/cars/useCases/createCategory/createCategoryUseCase'
+import { Router } from "express";
 
-const specificationRoutes = Router()
+import { CategoriesRepository } from "../modules/cars/repositories/categoriesRepository";
+import { CreateCategoryUseCase } from "../modules/cars/useCases/createCategory/createCategoryUseCase";
 
-const specificationRepository = new CategoriesRepository()
+const specificationRoutes = Router();
+
+const specificationRepository = new CategoriesRepository();
 
 specificationRoutes.post("/", (req, res) => {
-    const { name, description } = req.body
+  const { name, description } = req.body;
 
-    const createSpecificationRepository = new CreateCategoryUseCase(specificationRepository)
+  const createSpecificationRepository = new CreateCategoryUseCase(
+    specificationRepository
+  );
 
-    createSpecificationRepository.execute({ name, description })
+  createSpecificationRepository.execute({ name, description });
 
-    return res.status(201).send()
-})
+  return res.status(201).send();
+});
 
 specificationRoutes.get("/", (req, res) => {
-    const all = specificationRepository.list()
+  const all = specificationRepository.list();
 
-    return res.status(201).json(all)
-})
+  return res.status(201).json(all);
+});
 
-export { specificationRoutes }
+export { specificationRoutes };
