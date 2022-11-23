@@ -2,21 +2,14 @@ import { Router } from "express";
 
 import { CategoriesRepository } from "../modules/cars/repositories/implementation/categoriesRepository";
 import { CreateCategoryUseCase } from "../modules/cars/useCases/createCategory/createCategoryUseCase";
+import { createSpecificationController } from "../modules/cars/useCases/createSpecification";
 
 const specificationRoutes = Router();
 
 const specificationRepository = new CategoriesRepository();
 
 specificationRoutes.post("/", (req, res) => {
-  const { name, description } = req.body;
-
-  const createSpecificationRepository = new CreateCategoryUseCase(
-    specificationRepository
-  );
-
-  createSpecificationRepository.execute({ name, description });
-
-  return res.status(201).send();
+  return createSpecificationController.handle(req, res);
 });
 
 specificationRoutes.get("/", (req, res) => {
